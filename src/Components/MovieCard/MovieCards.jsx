@@ -84,7 +84,11 @@ function MovieCards({ searchInput, cardClickHandler, setLoading, loading }) {
   return (
     <div className='relative min-h-screen pb-16'>
       <div className='mt-10 flex-col flex px-8 items-center'>
-        {movies.length ? <p className='px-8 dark:text-white'>Results: {result}</p> : null}
+        {movies.length ? (
+          <p className='px-8 text-gray-600 dark:text-gray-400 text-lg mb-6'>
+            Found {result} results for "{searchInput}"
+          </p>
+        ) : null}
         <div className='flex flex-wrap justify-center px-2 md:px-4 lg:px-12 gap-3'>
           {loading && (
             <div className='flex justify-center items-center mt-24'>
@@ -106,7 +110,39 @@ function MovieCards({ searchInput, cardClickHandler, setLoading, loading }) {
               />
             ))
           ) : (
-            !loading && <p className='text-red-600 text-xl font-semibold mt-32'>No movies found !!</p>
+            !loading && (
+              <div className='text-center mt-32'>
+                <p className='text-gray-600 dark:text-gray-400 text-xl font-semibold mb-4'>
+                  No results found for "{searchInput}"
+                </p>
+                <p className='text-gray-500 dark:text-gray-500 mb-4'>
+                  Try searching for something else or check your spelling
+                </p>
+                <div className='text-gray-500 dark:text-gray-400'>
+                  <p className='mb-2'>Popular searches:</p>
+                  <div className='flex flex-wrap justify-center gap-2'>
+                    <button 
+                      onClick={() => setSearchInput('action movies')}
+                      className='px-4 py-2 rounded-full bg-blue-100 dark:bg-slate-700 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-slate-600 transition-colors'
+                    >
+                      Action Movies
+                    </button>
+                    <button 
+                      onClick={() => setSearchInput('comedy series')}
+                      className='px-4 py-2 rounded-full bg-blue-100 dark:bg-slate-700 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-slate-600 transition-colors'
+                    >
+                      Comedy Series
+                    </button>
+                    <button 
+                      onClick={() => setSearchInput('sci-fi movies')}
+                      className='px-4 py-2 rounded-full bg-blue-100 dark:bg-slate-700 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-slate-600 transition-colors'
+                    >
+                      Sci-Fi Movies
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )
           )}
         </div>
       </div>

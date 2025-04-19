@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Menu from './Menu';
 import { useNavigate } from 'react-router-dom';
+import { FaSun, FaMoon } from 'react-icons/fa';
 
 function NavbarContainer() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,7 +11,6 @@ function NavbarContainer() {
 
   useEffect(() => {
     const darkModeClass = 'dark';
-    document.documentElement.classList.add(darkModeClass);
     const isDark = document.documentElement.classList.contains(darkModeClass);
     setIsDarkMode(isDark);
   }, []);
@@ -24,27 +24,28 @@ function NavbarContainer() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex-col h-max shadow-xl w-full px-10 py-4 md:py-6 gap-4 md:px-40 flex fixed top-0 left-0 z-50 bg-white dark:bg-gray-800">
+    <div className="flex-col h-max shadow-xl w-full px-4 sm:px-6 md:px-10 py-3 md:py-4 gap-4 flex fixed top-0 left-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
       <div className="flex items-center justify-between h-full w-full">
-        <p
-          onClick={() => navigate('/')}
-          className="text-3xl font-bold text-blue-700 dark:text-white cursor-pointer hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-200"
-        >
-          SpotFlix
-        </p>
+        <div className="flex items-center gap-2">
+          <p
+            onClick={() => navigate('/')}
+            className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent cursor-pointer hover:from-blue-700 hover:to-purple-700 dark:hover:from-blue-400 dark:hover:to-purple-400 transition-all duration-300"
+          >
+            SpotFlix
+          </p>
+        </div>
 
-        <div className="flex items-center justify-center">
+        <div className="flex items-center gap-4">
           <button
             onClick={toggleDarkMode}
-            className="text-blue-700 dark:text-white text-2xl mr-4 md:hidden cursor-pointer flex justify-center items-center"
+            className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
           >
-            {isDarkMode ? '🌞' : '🌜'}
+            {isDarkMode ? <FaSun className="text-xl" /> : <FaMoon className="text-xl" />}
           </button>
 
-          {/* Icon container with fixed size and transition */}
           <div
             id="metaMenu"
-            className="w-8 h-8 flex items-center justify-center text-blue-700 dark:text-white text-2xl md:hidden cursor-pointer"
+            className="w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-200 text-2xl md:hidden cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors duration-200"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <span
@@ -57,19 +58,13 @@ function NavbarContainer() {
           </div>
         </div>
 
-        <div className="md:flex hidden flex-col md:flex-row text-lg text-blue-700 dark:text-white cursor-pointer h-full justify-center items-center">
-          <button
-            onClick={toggleDarkMode}
-            className="text-blue-700 dark:text-white text-2xl mr-4 hidden md:flex cursor-pointer justify-center items-center"
-          >
-            {isDarkMode ? '🌞' : '🌜'}
-          </button>
+        <div className="hidden md:flex items-center gap-6">
           <Menu setIsMenuOpen={setIsMenuOpen} />
         </div>
       </div>
 
       {isMenuOpen && (
-        <div className="flex flex-col md:hidden text-lg text-blue-700 dark:text-white cursor-pointer h-full justify-center items-center w-full gap-2">
+        <div className="flex flex-col md:hidden w-full gap-2 py-2">
           <Menu setIsMenuOpen={setIsMenuOpen} />
         </div>
       )}
