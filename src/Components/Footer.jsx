@@ -11,7 +11,7 @@ function Footer() {
         {/* Links */}
         <div className="flex space-x-6">
           <a
-            href="https://github.com/mayurprajapati068/"
+            href="https://github.com/Mayurprajapati6"
             target="_blank"
             rel="noopener noreferrer"
             className="text-2xl hover:text-blue-400 transition duration-300"
@@ -19,7 +19,7 @@ function Footer() {
             <FaGithub />
           </a>
           <a
-            href="https://www.linkedin.com/in/Mayurprajapati6"
+            href="https://www.linkedin.com/in/mayurprajapati068/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-2xl hover:text-blue-400 transition duration-300"

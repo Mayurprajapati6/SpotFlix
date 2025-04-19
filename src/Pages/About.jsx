@@ -54,7 +54,7 @@ function About() {
           </p>
           <div className="flex justify-center gap-6">
             <a
-              href="https://github.com/mayurprajapati068/"
+              href="https://github.com/Mayurprajapati6"
               target="_blank"
               rel="noopener noreferrer"
               className="text-2xl text-slate-700 dark:text-white hover:text-slate-900 transition duration-300"
@@ -62,7 +62,7 @@ function About() {
               <FaGithub />
             </a>
             <a
-              href="https://www.linkedin.com/in/Mayurprajapati6"
+              href="https://www.linkedin.com/in/mayurprajapati068/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-2xl text-slate-700 dark:text-white hover:text-slate-900 transition duration-300"
