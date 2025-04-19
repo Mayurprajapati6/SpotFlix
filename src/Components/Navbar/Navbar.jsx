@@ -28,7 +28,7 @@ function NavbarContainer() {
       <div className="flex items-center justify-between h-full w-full">
         <p
           onClick={() => navigate('/')}
-          className="text-3xl font-bold text-blue-700 dark:text-white cursor-pointer"
+          className="text-3xl font-bold text-blue-700 dark:text-white cursor-pointer hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-200"
         >
           SpotFlix
         </p>

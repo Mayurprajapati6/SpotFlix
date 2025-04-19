@@ -7,6 +7,12 @@ function MovieCards({ searchInput, cardClickHandler, setLoading, loading }) {
   const [result, setResult] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    setFavorites(storedFavorites);
+  }, []);
 
   const fetchData = async (page) => {
     setLoading(true);
@@ -15,7 +21,7 @@ function MovieCards({ searchInput, cardClickHandler, setLoading, loading }) {
       const data = await response.json();
       setMovies(data.Search || []);
       setResult(data.totalResults || 0);
-      setTotalPages(Math.ceil((data.totalResults || 0) / 10)); // Assuming 10 results per page
+      setTotalPages(Math.ceil((data.totalResults || 0) / 10));
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -46,6 +52,23 @@ function MovieCards({ searchInput, cardClickHandler, setLoading, loading }) {
     }
   };
 
+  const handleFavoriteClick = (movieId) => {
+    const movie = movies.find(m => m.imdbID === movieId);
+    if (movie) {
+      const isFavorite = favorites.some(f => f.imdbID === movieId);
+      let updatedFavorites;
+      
+      if (isFavorite) {
+        updatedFavorites = favorites.filter(f => f.imdbID !== movieId);
+      } else {
+        updatedFavorites = [...favorites, movie];
+      }
+      
+      setFavorites(updatedFavorites);
+      localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+    }
+  };
+
   const getPageNumbers = () => {
     const pages = [];
     const startPage = Math.max(1, currentPage - 2);
@@ -65,7 +88,7 @@ function MovieCards({ searchInput, cardClickHandler, setLoading, loading }) {
         <div className='flex flex-wrap justify-center px-2 md:px-4 lg:px-12 gap-3'>
           {loading && (
             <div className='flex justify-center items-center mt-24'>
-              <div className="spinner m-auto mt-24"></div> {/* Custom spinner */}
+              <div className="spinner m-auto mt-24"></div>
             </div>
           )}
           {!loading && movies.length > 0 ? (
@@ -75,8 +98,11 @@ function MovieCards({ searchInput, cardClickHandler, setLoading, loading }) {
                 title={movie.Title}
                 year={movie.Year}
                 poster={movie.Poster}
+                type={movie.Type}
                 cardClickHandler={cardClickHandler}
                 movieId={movie.imdbID}
+                onFavoriteClick={handleFavoriteClick}
+                isFavorite={favorites.some(f => f.imdbID === movie.imdbID)}
               />
             ))
           ) : (
